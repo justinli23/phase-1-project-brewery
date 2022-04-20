@@ -1,31 +1,68 @@
-document.addEventListener("DOMContentLoaded", 
+document.addEventListener("DOMContentLoaded", () => {
     fetch("https://api.openbrewerydb.org/breweries")
     .then(resp => resp.json())
     .then(data => {
-    addBrewery()
-    addSearch()
+        console.log(data)
+        assignImage(data)
+        console.log(dataWithImage)
+        //dataWithImage.forEach(object => addToCarousel(object))
+        addSearchFunction()
+})
+})
 
-}))
-//Search by type, state, name.
-
-//Selectors
+//Global Variables
 const carousel = document.querySelector("#carousel")
-const form = document.querySelector("form");
+const searchForm = document.querySelector("#form");
 const searchResults = document.querySelector("#search-results")
 const favoritedResults = document.querySelector("#favorited-results")
+let dataWithImage = []
 
-function addBrewery(brewery) {
-    const brewery = document.createElement("div")
-    const breweryName = brewery.name
-    const breweryType = brewery.Brewery_type
-    const breweryState = brewery.state
-    const brewerySite = brewery.Website_url
-    const likeButton = document.createElement("button")
-    brewery.append(likeButton)
-
+//Assign images to breweries
+function assignImage (data) {
+    data[0].image = "char-pikachu.png" //Banjo Brewing pic
+    data[1].image = ""
+    data[2].image = ""
+    //Continue until 19 with Dirt Road Brewing
+    dataWithImage = data
 }
 
-//adds search functionality
-function addSearch () {
-    //looks through database using filter, finds matching values and appends them to search results
+function addToCarousel(object) {
+    const carouselImg = document.createElement("img")
+    carouselImg.src = object.image
+    document.querySelector("#carousel").append(carouselImg)
+    // const searchImg = document.createElement("img")
+    // const nameField = document.createElement("")
+
+    // const breweryName = brewery.name
+    // const breweryType = brewery["Brewery_type"]
+    // const breweryState = brewery.state
+    // const brewerySite = brewery["Website_url"]
+    // const likeButton = document.createElement("button")
+}
+
+//adds search functionality, Search by type, state, name.
+//looks through database using filter, finds matching values and appends them to search results
+function addSearchFunction () {
+    document.querySelector("#form").addEventListener("submit", (e) => {
+        e.preventDefault()
+        console.log("test")
+        dataWithImage.forEach (breweryObject => {
+            const values = Object.values(breweryObject)
+            const searchTerm = e.target.search.value
+            console.log(values)
+            console.log(searchTerm)
+            for (let string of values) {
+                if (string.includes(searchTerm)) {
+                    foundBrewery(breweryObject.name)
+                    console.log("value was found")
+            }
+        }
+        });
+    })
+}
+
+
+//adds searched brewery to search results
+function foundBrewery (breweryName) {
+    console.log(breweryName)
 }
