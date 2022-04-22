@@ -4,24 +4,44 @@ document.addEventListener("DOMContentLoaded", () => {
     .then(breweryDataOld => {
         assignImage(breweryDataOld)
         console.log(breweryData)
-        //breweryData.forEach(brewery => addToCarousel(brewery))
+        for (i=0; i<4; i++) {
+            addToCarousel(breweryData[i])
+        }
+        carouselButtons()
         addSearchFunction()
 })
 })
 
 //Global Variables
-// const carousel = document.getElementById("carousel")
+// const carousel = document.querySelector("#carousel") was not working
 const searchForm = document.querySelector("#form");
 const searchResults = document.querySelector("#searchResults")
 const favoritedResults = document.querySelector("#favorited-results")
 let breweryData = []
+let carouselMin = 0
 
 //Assigns images to breweries and saves the updated info in breweryData
 function assignImage (breweryDataOld) {
-    breweryDataOld[0].image = "char-pikachu.png" //Banjo Brewing pic
-    //breweryDataOld[1].image = ""
-    //breweryDataOld[2].image = ""
-    //Continue until 19 with Dirt Road Brewing
+    breweryDataOld[0].image = "assets/banging-Banjo.jpg"
+    breweryDataOld[1].image = "assets/barrel_brothers.jpeg"
+    breweryDataOld[2].image = "assets/bay-brewing.jpg"
+    breweryDataOld[3].image = "assets/bent-shovel.jpeg"
+    breweryDataOld[4].image = "assets/snow-belt.jpg"
+    breweryDataOld[5].image = "assets/boring-brewing.jpeg."
+    breweryDataOld[6].image = "assets/brubakers.jpg"
+    breweryDataOld[7].image = "assets/camino-brewing.jpeg."
+    breweryDataOld[8].image = "assets/cape-ann-lanes.jpeg"
+    breweryDataOld[9].image = "assets/center-pivot.jpeg"
+    breweryDataOld[10].image = "assets/cerveceria-del-pueblo-pasadena.jpeg"
+    breweryDataOld[11].image = "assets/circle-9-brewing-san-diego.jpeg"
+    breweryDataOld[12].image = "assets/cerveza-guajira.jpg"
+    breweryDataOld[13].image = "assets/common-john-brewing-co-manchester.jpeg"
+    breweryDataOld[14].image = "assets/corner-pub-reedsburg.jpeg"
+    breweryDataOld[15].image = "assets/cyclers-brewing-montgomery.jpeg"
+    breweryDataOld[16].image = "assets/dented-face-brewing-company-delta.jpeg"
+    breweryDataOld[17].image = "assets/dfamle-enterprises-lp-dba-four-sons-brewing-huntington-beach.jpeg"
+    breweryDataOld[18].image = "assets/devout-brewing-export.jpeg"
+    breweryDataOld[19].image = "assets/dirt-road-brewing-corvallis.jpeg"
     breweryData = breweryDataOld
 }
 
@@ -29,6 +49,26 @@ function addToCarousel(breweryObj) {
     const carouselImg = document.createElement("img")
     carouselImg.src = breweryObj.image
     document.querySelector("#carousel").append(carouselImg)
+}
+
+function carouselButtons () {
+    const forward = document.createElement("button")
+    const back = document.createElement("button")
+    const carousel = document.querySelector("#carousel")
+    forward.textContent = "NEXT"
+    back.textContent = "BACK"
+    forward.addEventListener("click", () => {
+        for (let j=carouselMin+4; j<carouselMin+8; j++) {
+        while (carousel.firstChild) {
+            carousel.removeChild(carousel.firstChild)
+        }
+        console.log(breweryData[j])
+        addToCarousel(breweryData[j])
+        carouselMin = carouselMin + 4
+        }
+    })
+    carousel.append(back)
+    carousel.append(forward)
 }
 
 //adds search functionality, Search by type, state, name.
@@ -41,6 +81,7 @@ function addSearchFunction () {
         while (parent.firstChild) {
             parent.removeChild(parent.firstChild)
         }
+        parent.textContent = "Search Results"
         //Filters through values and returns results into array
         const matchingBreweries = breweryData.filter (breweryObject => {
             const values = Object.values(breweryObject)
@@ -94,8 +135,9 @@ function displayBrewery (brewery) {
         commentList.append(newComment)
         newComment.setAttribute("class", "comment")
         newComment.textContent = e.target.comment.value
+        commentForm.reset()
     })
-    phoneNum.textContent = brewery.phone
+    phoneNum.textContent = `Phone ${brewery.phone}`
     commentForm.append(input1)
     commentForm.append(buttonInput)
     div.append(img)

@@ -41,3 +41,9 @@ Form to add brewery using search functionality.
 Search through input fields of city, state, name, or zip code
 Click (button) to delete brewery from searched results.
 Adding a like to the brewery
+
+Notes for CSS:
+Each search result is found in a div
+brewery names have <a> tag
+Comment button has class "commentButton"
+Favorite button has class "favButton"
