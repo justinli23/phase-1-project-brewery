@@ -4,14 +4,13 @@ document.addEventListener("DOMContentLoaded", () => {
     .then(breweryDataOld => {
         assignImage(breweryDataOld)
         console.log(breweryData)
+        carouselButtons()
         for (i=0; i<4; i++) {
             addToCarousel(breweryData[i])
         }
-        carouselButtons()
         addSearchFunction()
 })
 })
-
 //Global Variables
 // const carousel = document.querySelector("#carousel") was not working
 const searchForm = document.querySelector("#form");
@@ -58,14 +57,26 @@ function carouselButtons () {
     forward.textContent = "NEXT"
     back.textContent = "BACK"
     forward.addEventListener("click", () => {
-        for (let j=carouselMin+4; j<carouselMin+8; j++) {
-        while (carousel.firstChild) {
-            carousel.removeChild(carousel.firstChild)
+        if (carouselMin+4 < breweryData.length) {
+        for (let i=0; i<4; i++) {
+            carousel.removeChild(carousel.children[2])
         }
-        console.log(breweryData[j])
-        addToCarousel(breweryData[j])
+        for (let i=carouselMin+4; i<carouselMin+8; i++) {
+        addToCarousel(breweryData[i])
+        }
         carouselMin = carouselMin + 4
-        }
+    }
+    })
+    back.addEventListener("click", () => {
+        if (carouselMin != 0) {
+            for (let i=0; i<4; i++) {
+                carousel.removeChild(carousel.children[2])
+            }
+            for (let i=carouselMin-4; i<carouselMin; i++) {
+                addToCarousel(breweryData[i])
+            }
+            carouselMin = carouselMin - 4
+    }
     })
     carousel.append(back)
     carousel.append(forward)
@@ -166,7 +177,6 @@ function addToFavorites (brewery) {
     deleteButton.addEventListener("click", () => {
         div.remove()
     })
-
     div.append(img)
     div.append(name)
     div.append(deleteButton)
