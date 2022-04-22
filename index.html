@@ -6,20 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Brewery Locator</title>
     <script src="src/js/index.js"></script>
-    <link rel="stylesheet" href=""style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <h1>JCJ Brewery Locator</h1>
     <!--Images go in-->
-    <div id="carousel"> Recommendations
-
-    </div>
     <form id="form">
         <label for="searchterm">Search by Name, Type, State: </label>
         <input type="text" name="search" id="search-term">
         <input type="submit" value="Search">
       </form>
-    <div id="searchResults">Search Results</div>
-    <div id="favoritedResults">Favorited Results</div>
+    <div class="row">
+    <div class="column" id="searchResults">Search Results</div>
+    <div class="column" id="favoritedResults">Favorited Results</div>
+    </div>
+    <div id="carousel"></div>
+    <div class="footer">Footer Text</div>
 </body>
 </html>
