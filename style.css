@@ -46,6 +46,16 @@ form {
     border-style: inset;
 }
 
+button {
+    width: 75px;
+    height: 50px;
+}
+
+.favButton {
+    width: 75px;
+    height: 20px;
+}
+
 img {
     float: left;
     width:  150px;
